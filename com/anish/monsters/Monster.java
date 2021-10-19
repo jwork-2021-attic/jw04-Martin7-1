@@ -1,14 +1,18 @@
-package com.anish.calabashbros;
+package com.anish.monsters;
 
 import java.awt.Color;
 
-public class Calabash extends Creature implements Comparable<Calabash> {
+public class Monster extends Creature implements Comparable<Monster> {
+    int rank;
 
-    private int rank;
-
-    public Calabash(Color color, int rank, World world) {
+    public Monster(Color color, int rank, World world) {
         super(color, (char) 2, world);
         this.rank = rank;
+    }
+
+    public Monster(Color color, World world) {
+        super(color, (char) 2, world);
+        this.rank = color.getRed() * color.getBlue();
     }
 
     public int getRank() {
@@ -21,15 +25,15 @@ public class Calabash extends Creature implements Comparable<Calabash> {
     }
 
     @Override
-    public int compareTo(Calabash o) {
+    public int compareTo(Monster o) {
         return Integer.valueOf(this.rank).compareTo(Integer.valueOf(o.rank));
     }
 
-    public void swap(Calabash another) {
+    public void swap(Monster another) {
         int x = this.getX();
         int y = this.getY();
         this.moveTo(another.getX(), another.getY());
         another.moveTo(x, y);
     }
-
+    
 }

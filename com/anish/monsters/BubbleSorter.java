@@ -1,4 +1,4 @@
-package com.anish.calabashbros;
+package com.anish.monsters;
 
 public class BubbleSorter<T extends Comparable<T>> implements Sorter<T> {
 
@@ -7,6 +7,11 @@ public class BubbleSorter<T extends Comparable<T>> implements Sorter<T> {
     @Override
     public void load(T[] a) {
         this.a = a;
+    }
+
+    @Override
+    public void load(T[][] a) {
+        // nothing to do in this class
     }
 
     private void swap(int i, int j) {
