@@ -1,6 +1,5 @@
 package com.anish.monsters;
 
-import java.lang.reflect.Array;
 import java.util.Random;
 import java.awt.Color;
 
@@ -23,7 +22,7 @@ public class God {
      * @param world 妖精所在的世界
      * @return 创建好的妖精矩阵
      */
-    public Monster[][] createMonsters(int row, int column, World world) {
+    public Monster[][] createMonsters(int row, int column) {
         // 创造一个row行column列的生物矩阵
         // 赋予这个生物矩阵
         Monster[][] monsters = new Monster[row][column];
@@ -36,7 +35,8 @@ public class God {
             Rvalue = random.nextInt(256);
             Gvalue = random.nextInt(256);
             Bvalue = random.nextInt(256);
-            monsters[Math.floorDiv(curIndex, column)][curIndex % column] = new Monster(new Color(Rvalue, Gvalue, Bvalue), world);
+            monsters[Math.floorDiv(curIndex, column)][curIndex % column] = new Monster(new Color(Rvalue, Gvalue, Bvalue), this.world);
+            curIndex++;
         }
 
         return monsters;
@@ -52,7 +52,7 @@ public class God {
         // 我们将64个怪物每一行放在13-27之间，两个怪物之间相隔的距离为2
         // 将64个怪物放在3-17之间
         int curX = 13;
-        int curY = 3;
+        int curY = 2;
         for (int i = 0; i < creatures.length; i++) {
             curX = 13;
             for (int j = 0; j < creatures[0].length; j++) {

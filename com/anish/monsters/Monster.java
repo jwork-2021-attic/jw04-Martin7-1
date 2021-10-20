@@ -12,7 +12,7 @@ public class Monster extends Creature implements Comparable<Monster> {
 
     public Monster(Color color, World world) {
         super(color, (char) 2, world);
-        this.rank = color.getRed() * color.getBlue();
+        this.rank = color.getRed() * color.getBlue() * color.getGreen() / 3;
     }
 
     public int getRank() {

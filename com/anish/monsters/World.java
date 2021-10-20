@@ -7,6 +7,7 @@ public class World {
 
     private Tile<Thing>[][] tiles;
 
+    @SuppressWarnings("unchecked")
     public World() {
 
         if (tiles == null) {
