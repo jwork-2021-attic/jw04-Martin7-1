@@ -6,20 +6,25 @@ import java.awt.event.KeyEvent;
 import com.anish.calabashbros.BubbleSorter;
 import com.anish.calabashbros.Calabash;
 import com.anish.calabashbros.World;
-import com.anish.mazegenerator.MazeGenerator;
+import com.anish.maze.generator.MazeGenerator;
+import com.anish.maze.generator.Maze;
+import com.anish.util.ChangeType;
 
 import asciiPanel.AsciiPanel;
 
 public class WorldScreen implements Screen {
 
     private World world;
-    private int[][] maze;
+    private Maze maze;
     private Calabash calabash;
 
     public WorldScreen() {
         world = new World();
         MazeGenerator mazeGenerator = new MazeGenerator(World.WIDTH);
         mazeGenerator.generateMaze();
+        this.maze = new Maze(mazeGenerator.getMaze());
+
+        world = new World(this.maze);
     }
 
     @Override

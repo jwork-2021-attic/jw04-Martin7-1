@@ -7,6 +7,10 @@ public class World {
 
     private Tile<Thing>[][] tiles;
 
+    public World(Tile<Thing>[][] maze) {
+        this.tiles = maze;
+    }
+
     public World() {
 
         if (tiles == null) {
