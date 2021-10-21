@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package screen;
+package com.anish.screen;
 
 import asciiPanel.AsciiPanel;
 import java.awt.event.KeyEvent;
@@ -33,7 +33,7 @@ public abstract class RestartScreen implements Screen {
     public Screen respondToUserInput(KeyEvent key) {
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                return new PlayScreen();
+                return new WorldScreen();
             default:
                 return this;
         }
