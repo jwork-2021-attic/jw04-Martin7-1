@@ -18,15 +18,16 @@
 package screen;
 
 import asciiPanel.AsciiPanel;
-import java.awt.event.KeyEvent;
 
 /**
  *
  * @author Aeranythe Echosong
  */
-public interface Screen {
+public class LoseScreen extends RestartScreen {
 
-    public void displayOutput(AsciiPanel terminal);
+    @Override
+    public void displayOutput(AsciiPanel terminal) {
+        terminal.write("You lost! Press enter to try again.", 0, 0);
+    }
 
-    public Screen respondToUserInput(KeyEvent key);
 }
