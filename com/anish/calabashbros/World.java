@@ -1,5 +1,7 @@
 package com.anish.calabashbros;
 
+import com.anish.maze.generator.Maze;
+
 public class World {
 
     public static final int WIDTH = 40;
@@ -7,10 +9,22 @@ public class World {
 
     private Tile<Thing>[][] tiles;
 
-    public World(Tile<Thing>[][] maze) {
-        this.tiles = maze;
+    @SuppressWarnings("unchecked")
+    public World(Maze maze) {
+        // 将maze放到tiles里面
+        tiles = new Tile[WIDTH][HEIGHT];
+        
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                tiles[i][j] = new Tile<>(i, j);
+                if (maze.isRoad(i, j)) {
+                    tiles[i][j].setThing(new Floor(this));
+                }
+            }
+        }
     }
 
+    @SuppressWarnings("unchecked")
     public World() {
 
         if (tiles == null) {

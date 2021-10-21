@@ -9,6 +9,7 @@ import com.anish.calabashbros.World;
 import com.anish.maze.generator.MazeGenerator;
 import com.anish.maze.generator.Maze;
 import com.anish.util.ChangeType;
+import com.anish.calabashbros.Floor;
 
 import asciiPanel.AsciiPanel;
 
@@ -17,14 +18,15 @@ public class WorldScreen implements Screen {
     private World world;
     private Maze maze;
     private Calabash calabash;
+    private int countStep;
 
     public WorldScreen() {
-        world = new World();
         MazeGenerator mazeGenerator = new MazeGenerator(World.WIDTH);
         mazeGenerator.generateMaze();
         this.maze = new Maze(mazeGenerator.getMaze());
 
         world = new World(this.maze);
+        countStep = 0;
     }
 
     @Override
@@ -45,47 +47,49 @@ public class WorldScreen implements Screen {
     public Screen respondToUserInput(KeyEvent key) {
         boolean autoMove = false;
         int keyCode = key.getKeyCode();
-        int x = bro.getX();
-        int y = bro.getY();
+        int x = calabash.getX();
+        int y = calabash.getY();
         Boolean moveSuccessfully = false;
         Boolean reachExit = false;
         int curX = x,curY = y;
         switch(keyCode){
             case KeyEvent.VK_LEFT:
-                moveSuccessfully = bro.moveTo(x-1,y);
+                moveSuccessfully = calabash.moveTo(x-1,y);
                 curX = x - 1;
                 autoMove = false;
                 break;
             case KeyEvent.VK_RIGHT:
-                moveSuccessfully = bro.moveTo(x+1, y);
+                moveSuccessfully = calabash.moveTo(x+1, y);
                 curX = x + 1;
                 autoMove = false;
                 break;
             case KeyEvent.VK_UP:
-                moveSuccessfully = bro.moveTo(x, y-1);
+                moveSuccessfully = calabash.moveTo(x, y-1);
                 curY = y - 1;
                 autoMove = false;
                 break;
             case KeyEvent.VK_DOWN:
-                moveSuccessfully = bro.moveTo(x, y+1);
+                moveSuccessfully = calabash.moveTo(x, y+1);
                 curY = y + 1;
                 autoMove = false;
                 break;   
             case KeyEvent.VK_ENTER:
+                // TODO
+                // auto move 
                 if(autoMove == false){
                     autoMove = true;
-                    autoRouter.startAutoDrive();
+                    // autoRouter.startAutoDrive();
                 }
-                reachExit = autoRouter.execute();
-                counter++;
+                // reachExit = autoRouter.execute();
+                countStep++;
         }
         if(moveSuccessfully){
-            world.put(new Floor(world),x,y);
-            counter++;
+            world.put(new Floor(world), x, y);
+            countStep++;
         }
         if(curX == World.WIDTH && curY == World.HEIGHT)reachExit = true;
         if(reachExit){
-            return new WinScreen(counter);
+            return new WinScreen(countStep);
         }
         return this;
     }

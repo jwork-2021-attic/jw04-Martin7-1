@@ -8,8 +8,19 @@ public class Creature extends Thing {
         super(color, glyph, world);
     }
 
-    public void moveTo(int xPos, int yPos) {
+    /**
+     * 移动某个生物，如果移动成功则返回true
+     * @param xPos x坐标
+     * @param yPos y坐标
+     * @return true if move successfully, false otherwise.
+     */
+    public boolean moveTo(int xPos, int yPos) {
         this.world.put(this, xPos, yPos);
+        if (this.getX() != xPos || this.getY() != yPos) {
+            return false;
+        }
+
+        return true;
     }
 
 }
