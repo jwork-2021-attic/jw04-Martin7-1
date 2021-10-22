@@ -7,6 +7,7 @@ import com.anish.calabashbros.Calabash;
 import com.anish.calabashbros.World;
 import com.anish.maze.generator.MazeGenerator;
 import com.anish.maze.generator.Maze;
+import com.anish.maze.generator.CalabashLeader;
 import com.anish.calabashbros.Floor;
 import com.anish.calabashbros.God;
 
@@ -19,6 +20,7 @@ public class WorldScreen implements Screen {
     private Calabash calabash;
     private int countStep;
     private God god;
+    private CalabashLeader leader;
 
     public WorldScreen() {
         MazeGenerator mazeGenerator = new MazeGenerator(World.WIDTH);
@@ -33,6 +35,7 @@ public class WorldScreen implements Screen {
         // 放置葫芦娃到世界中
         calabash = god.createCalabashBro();
         god.setPositions(calabash, 0, 0);
+        leader = new CalabashLeader(this.maze, this.calabash, this.world);
     }
 
     @Override
@@ -56,7 +59,6 @@ public class WorldScreen implements Screen {
         int x = calabash.getX();
         int y = calabash.getY();
         Boolean moveSuccessfully = false;
-        Boolean reachExit = false;
         int curX = x,curY = y;
         if (x == World.WIDTH - 1 && y == World.HEIGHT - 1) {
             return new WinScreen(countStep);
@@ -96,8 +98,8 @@ public class WorldScreen implements Screen {
                 if(autoMove == false){
                     autoMove = true;
                     // autoRouter.startAutoDrive();
+                    leader.startLead();
                 }
-                // reachExit = autoRouter.execute();
                 countStep++;
             default:
         }

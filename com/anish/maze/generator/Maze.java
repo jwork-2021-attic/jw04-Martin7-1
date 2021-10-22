@@ -31,5 +31,9 @@ public class Maze {
 
         return false;
     }
+
+    public int getDim() {
+        return this.tiles.length;
+    }
     
 }
