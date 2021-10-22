@@ -15,7 +15,7 @@ import asciiPanel.AsciiPanel;
 
 public class Main extends JFrame implements KeyListener {
 
-    private AsciiPanel terminal;
+    private AsciiPanel terminal; 
     private Screen screen;
 
     public Main() {

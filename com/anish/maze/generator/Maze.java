@@ -19,7 +19,7 @@ public class Maze {
      * @return true if the element is road, false otherwise.
      */
     public boolean isRoad(int xIndex, int yIndex) {
-        if (tiles[xIndex][yIndex] == 0) {
+        if (tiles[xIndex][yIndex] == 1) {
             return true;
         }
 

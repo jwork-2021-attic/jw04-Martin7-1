@@ -12,13 +12,17 @@ public class World {
     @SuppressWarnings("unchecked")
     public World(Maze maze) {
         // 将maze放到tiles里面
-        tiles = new Tile[WIDTH][HEIGHT];
+        if (tiles == null) {
+            tiles = new Tile[WIDTH][HEIGHT];
+        }
         
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 tiles[i][j] = new Tile<>(i, j);
                 if (maze.isRoad(i, j)) {
                     tiles[i][j].setThing(new Floor(this));
+                } else {
+                    tiles[i][j].setThing(new Wall(this));
                 }
             }
         }
