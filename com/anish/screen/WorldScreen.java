@@ -59,56 +59,65 @@ public class WorldScreen implements Screen {
     @Override
     public Screen respondToUserInput(KeyEvent key) {
         if (this.leader != null) {
-            leader.startLead();
-            while (!leader.getExit()) {
-                leader.execute();
+            int keyCode = key.getKeyCode();
+            boolean isReachExit = false;
+            switch (keyCode) {
+                case KeyEvent.VK_ENTER:
+                    leader.startLead();
+                    break;
+            }
+
+            isReachExit = leader.execute();
+            
+            if (isReachExit) {
+                return new WinScreen(countStep);
+            } else {
+                return this;
+            }
+        } else {
+            int keyCode = key.getKeyCode();
+            int x = calabash.getX();
+            int y = calabash.getY();
+            Boolean moveSuccessfully = false;
+            int curX = x,curY = y;
+            if (x == World.WIDTH - 1 && y == World.HEIGHT - 1) {
+                return new WinScreen(countStep);
+            }
+            switch(keyCode){
+                case KeyEvent.VK_LEFT:
+                    if (maze.isRoad(curX - 1, curY)) {
+                        moveSuccessfully = calabash.moveTo(x-1,y);
+                        curX = x - 1;
+                    }
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    if (maze.isRoad(curX + 1, curY)) {
+                        moveSuccessfully = calabash.moveTo(x+1, y);
+                        curX = x + 1;
+                    }
+                    break;
+                case KeyEvent.VK_UP:
+                    if (maze.isRoad(curX, curY - 1)) {
+                        moveSuccessfully = calabash.moveTo(x, y-1);
+                        curY = y - 1;
+                    }
+                    break;
+                case KeyEvent.VK_DOWN:
+                    if (maze.isRoad(curX, curY + 1)) {
+                        moveSuccessfully = calabash.moveTo(x, y+1);
+                        curY = y + 1;
+                    }
+                    break;
+                default:
+            }
+
+            if(moveSuccessfully){
+                world.put(new Floor(world, true), x, y);
                 countStep++;
             }
             
-            return new WinScreen(countStep);
+            return this;
         }
-        int keyCode = key.getKeyCode();
-        int x = calabash.getX();
-        int y = calabash.getY();
-        Boolean moveSuccessfully = false;
-        int curX = x,curY = y;
-        if (x == World.WIDTH - 1 && y == World.HEIGHT - 1) {
-            return new WinScreen(countStep);
-        }
-        switch(keyCode){
-            case KeyEvent.VK_LEFT:
-                if (maze.isRoad(curX - 1, curY)) {
-                    moveSuccessfully = calabash.moveTo(x-1,y);
-                    curX = x - 1;
-                }
-                break;
-            case KeyEvent.VK_RIGHT:
-                if (maze.isRoad(curX + 1, curY)) {
-                    moveSuccessfully = calabash.moveTo(x+1, y);
-                    curX = x + 1;
-                }
-                break;
-            case KeyEvent.VK_UP:
-                if (maze.isRoad(curX, curY - 1)) {
-                    moveSuccessfully = calabash.moveTo(x, y-1);
-                    curY = y - 1;
-                }
-                break;
-            case KeyEvent.VK_DOWN:
-                if (maze.isRoad(curX, curY + 1)) {
-                    moveSuccessfully = calabash.moveTo(x, y+1);
-                    curY = y + 1;
-                }
-                break;
-            default:
-        }
-
-        if(moveSuccessfully){
-            world.put(new Floor(world, true), x, y);
-            countStep++;
-        }
-        
-        return this;
     }
 
 }

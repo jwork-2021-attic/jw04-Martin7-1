@@ -55,8 +55,8 @@ public class CalabashLeader {
             return;
         }
 
-        int[] dx = {1,-1,0,0};
-        int[] dy = {0,0,1,-1};
+        int[] dx = {1, -1, 0, 0};
+        int[] dy = {0, 0, 1, -1};
         for(int i = 0; i < 4; i++) {
             int x = curX + dx[i];
             int y = curY + dy[i];
@@ -83,17 +83,15 @@ public class CalabashLeader {
     /**
      * 执行移动
      */
-    public void execute() {
+    public boolean execute() {
         Link curLink = plans.poll();
         Node dest = curLink.getDest();
         Node src = curLink.getSrc();
 
         this.bro.moveTo(dest.x, dest.y);
         world.put(new Floor(world, true), src.x, src.y);
-    }
 
-    public boolean getExit() {
-        if (this.bro.getX() == World.WIDTH - 1 && this.bro.getY() == World.HEIGHT - 1) {
+        if (dest.x == World.WIDTH - 1 && dest.y == World.HEIGHT - 1) {
             return true;
         }
 
