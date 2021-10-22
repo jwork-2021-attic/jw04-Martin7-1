@@ -25,7 +25,7 @@ import asciiPanel.AsciiPanel;
  */
 public class WinScreen extends RestartScreen {
 
-    int count;
+    private int count;
 
     public WinScreen(int countStep) {
         this.count = countStep;
@@ -33,8 +33,8 @@ public class WinScreen extends RestartScreen {
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
-        terminal.write("You won! Press enter to go again.", 0, 0);
-        terminal.write("You have spent " + count + " step to win!", 10, 10);
+        terminal.write("You won! Press enter to go again.", 5, 20);
+        // terminal.write("You have spent " + count + " step to win!", 10, 10);
     }
 
 }

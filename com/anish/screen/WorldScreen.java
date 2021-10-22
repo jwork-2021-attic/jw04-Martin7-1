@@ -58,6 +58,9 @@ public class WorldScreen implements Screen {
         Boolean moveSuccessfully = false;
         Boolean reachExit = false;
         int curX = x,curY = y;
+        if (x == World.WIDTH - 1 && y == World.HEIGHT - 1) {
+            return new WinScreen(countStep);
+        }
         switch(keyCode){
             case KeyEvent.VK_LEFT:
                 if (maze.isRoad(curX - 1, curY)) {
@@ -96,17 +99,13 @@ public class WorldScreen implements Screen {
                 }
                 // reachExit = autoRouter.execute();
                 countStep++;
+            default:
         }
         if(moveSuccessfully){
             world.put(new Floor(world, true), x, y);
             countStep++;
         }
-        if(curX == World.WIDTH && curY == World.HEIGHT) {
-            reachExit = true;
-        }
-        if(reachExit){
-            return new WinScreen(countStep);
-        }
+        
         return this;
     }
 

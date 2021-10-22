@@ -18,6 +18,7 @@
 package com.anish.screen;
 
 import asciiPanel.AsciiPanel;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -27,8 +28,8 @@ public class StartScreen extends RestartScreen {
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
-        terminal.write("This is the start screen.", 10, 20);
-        terminal.write("Press ENTER to continue...", 10, 21);
+        terminal.write("This is the start screen.", 5, 20);
+        terminal.write("Press ENTER to continue...", 5, 21);
     }
 
 }

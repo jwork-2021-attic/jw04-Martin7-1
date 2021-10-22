@@ -1,5 +1,7 @@
 package com.anish.maze.generator;
 
+import com.anish.calabashbros.World;
+
 public class Maze {
 
     private int[][] tiles;
@@ -19,6 +21,10 @@ public class Maze {
      * @return true if the element is road, false otherwise.
      */
     public boolean isRoad(int xIndex, int yIndex) {
+        if (xIndex >= World.WIDTH || yIndex >= World.HEIGHT) {
+            return false;
+        }
+        
         if (tiles[xIndex][yIndex] == 1) {
             return true;
         }
