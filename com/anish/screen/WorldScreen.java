@@ -100,6 +100,7 @@ public class WorldScreen implements Screen {
                     // autoRouter.startAutoDrive();
                     leader.startLead();
                 }
+                leader.execute();
                 countStep++;
             default:
         }
