@@ -11,6 +11,12 @@ public class Calabash extends Creature implements Comparable<Calabash> {
         this.rank = rank;
     }
 
+    public Calabash(Color color, World world) {
+        super(color, (char) 2, world);
+        // 不需要rank
+        this.rank = 0;
+    }
+
     public int getRank() {
         return this.rank;
     }

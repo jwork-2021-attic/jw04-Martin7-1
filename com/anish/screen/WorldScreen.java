@@ -3,12 +3,10 @@ package com.anish.screen;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
-import com.anish.calabashbros.BubbleSorter;
 import com.anish.calabashbros.Calabash;
 import com.anish.calabashbros.World;
 import com.anish.maze.generator.MazeGenerator;
 import com.anish.maze.generator.Maze;
-import com.anish.util.ChangeType;
 import com.anish.calabashbros.Floor;
 
 import asciiPanel.AsciiPanel;
@@ -27,6 +25,9 @@ public class WorldScreen implements Screen {
 
         world = new World(this.maze);
         countStep = 0;
+
+        // 获得葫芦娃
+        // 放置葫芦娃到世界中
     }
 
     @Override
