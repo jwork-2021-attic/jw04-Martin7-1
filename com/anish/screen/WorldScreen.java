@@ -8,6 +8,7 @@ import com.anish.calabashbros.World;
 import com.anish.maze.generator.MazeGenerator;
 import com.anish.maze.generator.Maze;
 import com.anish.calabashbros.Floor;
+import com.anish.calabashbros.God;
 
 import asciiPanel.AsciiPanel;
 
@@ -17,6 +18,7 @@ public class WorldScreen implements Screen {
     private Maze maze;
     private Calabash calabash;
     private int countStep;
+    private God god;
 
     public WorldScreen() {
         MazeGenerator mazeGenerator = new MazeGenerator(World.WIDTH);
@@ -24,10 +26,13 @@ public class WorldScreen implements Screen {
         this.maze = new Maze(mazeGenerator.getMaze());
 
         world = new World(this.maze);
+        god = God.getGod(this.world);
         countStep = 0;
 
         // 获得葫芦娃
         // 放置葫芦娃到世界中
+        calabash = god.createCalabashBro();
+        god.setPositions(calabash, 0, 0);
     }
 
     @Override
