@@ -4,8 +4,11 @@ import java.awt.Color;
 
 public class Floor extends Thing {
 
-    public Floor(World world) {
-        super(Color.green, (char) 250, world);
+    public Floor(World world, boolean isReach) {
+        super(Color.gray, (char) 250, world);
+        if (isReach) {
+            setColor(Color.yellow);
+        }
     }
 
 }

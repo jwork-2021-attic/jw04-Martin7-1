@@ -19,10 +19,10 @@ public class World {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 tiles[i][j] = new Tile<>(i, j);
-                if (maze.isRoad(i, j)) {
-                    tiles[i][j].setThing(new Floor(this));
-                } else {
+                if (!maze.isRoad(i, j)) {
                     tiles[i][j].setThing(new Wall(this));
+                } else {
+                    tiles[i][j].setThing(new Floor(this, false));
                 }
             }
         }
@@ -38,7 +38,7 @@ public class World {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 tiles[i][j] = new Tile<>(i, j);
-                tiles[i][j].setThing(new Floor(this));
+                tiles[i][j].setThing(new Floor(this, true));
             }
         }
     }

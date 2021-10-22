@@ -60,24 +60,32 @@ public class WorldScreen implements Screen {
         int curX = x,curY = y;
         switch(keyCode){
             case KeyEvent.VK_LEFT:
-                moveSuccessfully = calabash.moveTo(x-1,y);
-                curX = x - 1;
-                autoMove = false;
+                if (maze.isRoad(curX - 1, curY)) {
+                    moveSuccessfully = calabash.moveTo(x-1,y);
+                    curX = x - 1;
+                    autoMove = false;
+                }
                 break;
             case KeyEvent.VK_RIGHT:
-                moveSuccessfully = calabash.moveTo(x+1, y);
-                curX = x + 1;
-                autoMove = false;
+                if (maze.isRoad(curX + 1, curY)) {
+                    moveSuccessfully = calabash.moveTo(x+1, y);
+                    curX = x + 1;
+                    autoMove = false;
+                }
                 break;
             case KeyEvent.VK_UP:
-                moveSuccessfully = calabash.moveTo(x, y-1);
-                curY = y - 1;
-                autoMove = false;
+                if (maze.isRoad(curX, curY - 1)) {
+                    moveSuccessfully = calabash.moveTo(x, y-1);
+                    curY = y - 1;
+                    autoMove = false;
+                }
                 break;
             case KeyEvent.VK_DOWN:
-                moveSuccessfully = calabash.moveTo(x, y+1);
-                curY = y + 1;
-                autoMove = false;
+                if (maze.isRoad(curX, curY + 1)) {
+                    moveSuccessfully = calabash.moveTo(x, y+1);
+                    curY = y + 1;
+                    autoMove = false;
+                }
                 break;   
             case KeyEvent.VK_ENTER:
                 // TODO
@@ -90,10 +98,12 @@ public class WorldScreen implements Screen {
                 countStep++;
         }
         if(moveSuccessfully){
-            world.put(new Floor(world), x, y);
+            world.put(new Floor(world, true), x, y);
             countStep++;
         }
-        if(curX == World.WIDTH && curY == World.HEIGHT)reachExit = true;
+        if(curX == World.WIDTH && curY == World.HEIGHT) {
+            reachExit = true;
+        }
         if(reachExit){
             return new WinScreen(countStep);
         }
