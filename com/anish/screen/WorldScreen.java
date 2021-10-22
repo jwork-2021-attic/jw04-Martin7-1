@@ -1,6 +1,5 @@
 package com.anish.screen;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import com.anish.calabashbros.Calabash;
@@ -93,7 +92,6 @@ public class WorldScreen implements Screen {
                 }
                 break;   
             case KeyEvent.VK_ENTER:
-                // TODO
                 // auto move 
                 if(autoMove == false){
                     autoMove = true;

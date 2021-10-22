@@ -18,7 +18,6 @@
 package com.anish.screen;
 
 import asciiPanel.AsciiPanel;
-import java.awt.event.KeyEvent;
 
 /**
  *
