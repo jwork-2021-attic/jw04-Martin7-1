@@ -70,12 +70,12 @@ public class CalabashLeader {
             } 
 
             if(visited[x][y] == 0) {
-                Link trip = new Link(new Node(curX,curY), new Node(x,y));
-                temp.add(trip);
+                Link link = new Link(new Node(curX, curY), new Node(x,y));
+                temp.add(link);
                 visited[x][y] = 1;
                 dfs(x, y);
                 visited[x][y] = 0;
-                temp.remove(trip);
+                temp.remove(link);
             }
         }
     }
@@ -90,6 +90,14 @@ public class CalabashLeader {
 
         this.bro.moveTo(dest.x, dest.y);
         world.put(new Floor(world, true), src.x, src.y);
+    }
+
+    public boolean getExit() {
+        if (this.bro.getX() == World.WIDTH - 1 && this.bro.getY() == World.HEIGHT - 1) {
+            return true;
+        }
+
+        return false;
     }
     
 }

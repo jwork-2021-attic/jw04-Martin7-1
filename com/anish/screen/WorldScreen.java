@@ -20,8 +20,11 @@ public class WorldScreen implements Screen {
     private int countStep;
     private God god;
     private CalabashLeader leader;
+    private boolean isNeedLead;
 
-    public WorldScreen() {
+    public WorldScreen(boolean isNeedLead) {
+        // boolean判断是否是自动引导
+        this.isNeedLead = isNeedLead;
         MazeGenerator mazeGenerator = new MazeGenerator(World.WIDTH);
         mazeGenerator.generateMaze();
         this.maze = new Maze(mazeGenerator.getMaze());
@@ -34,7 +37,9 @@ public class WorldScreen implements Screen {
         // 放置葫芦娃到世界中
         calabash = god.createCalabashBro();
         god.setPositions(calabash, 0, 0);
-        leader = new CalabashLeader(this.maze, this.calabash, this.world);
+        if (isNeedLead) {
+            leader = new CalabashLeader(this.maze, this.calabash, this.world);
+        }
     }
 
     @Override
@@ -53,7 +58,15 @@ public class WorldScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-        boolean autoMove = false;
+        if (this.leader != null) {
+            leader.startLead();
+            while (!leader.getExit()) {
+                leader.execute();
+                countStep++;
+            }
+            
+            return new WinScreen(countStep);
+        }
         int keyCode = key.getKeyCode();
         int x = calabash.getX();
         int y = calabash.getY();
@@ -67,41 +80,29 @@ public class WorldScreen implements Screen {
                 if (maze.isRoad(curX - 1, curY)) {
                     moveSuccessfully = calabash.moveTo(x-1,y);
                     curX = x - 1;
-                    autoMove = false;
                 }
                 break;
             case KeyEvent.VK_RIGHT:
                 if (maze.isRoad(curX + 1, curY)) {
                     moveSuccessfully = calabash.moveTo(x+1, y);
                     curX = x + 1;
-                    autoMove = false;
                 }
                 break;
             case KeyEvent.VK_UP:
                 if (maze.isRoad(curX, curY - 1)) {
                     moveSuccessfully = calabash.moveTo(x, y-1);
                     curY = y - 1;
-                    autoMove = false;
                 }
                 break;
             case KeyEvent.VK_DOWN:
                 if (maze.isRoad(curX, curY + 1)) {
                     moveSuccessfully = calabash.moveTo(x, y+1);
                     curY = y + 1;
-                    autoMove = false;
                 }
-                break;   
-            case KeyEvent.VK_ENTER:
-                // auto move 
-                if(autoMove == false){
-                    autoMove = true;
-                    // autoRouter.startAutoDrive();
-                    leader.startLead();
-                }
-                leader.execute();
-                countStep++;
+                break;
             default:
         }
+
         if(moveSuccessfully){
             world.put(new Floor(world, true), x, y);
             countStep++;
